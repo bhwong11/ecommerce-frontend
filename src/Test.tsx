@@ -1,6 +1,4 @@
 import React,{useState,useEffect} from 'react';
-import './App.css';
-import Test from "./Test";
 
 import {
     ApolloClient,
@@ -32,15 +30,23 @@ const GET_REVIEWS = gql`
       }
   }`;
 
-function App() {
+function Test() {
   const [reviews,setReviews] = useState<any>(null)
   const {loading,data} = useQuery<any>(GET_REVIEWS)
   //useEffect(()=>{
   //  setReviews(queryReviews)
   //})
   return (
-    <Test/>
+      <div className="App">
+        Hello World!
+      </div>
   );
 }
 
-export default App;
+export default ()=>{
+    return(
+        <ApolloProvider client={client}>
+              <Test />
+          </ApolloProvider>
+    )
+}
