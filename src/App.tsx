@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from 'react';
-import { ApolloConsumer } from '@apollo/client';
 import './App.css';
 
 import {
@@ -7,10 +6,11 @@ import {
     InMemoryCache,
     ApolloProvider,
     useQuery,
-    useSubscription,
     gql,
     useMutation,
   } from "@apollo/client";
+
+import Products from './pages/Products';
 
 
 const GET_REVIEWS = gql`
@@ -29,15 +29,20 @@ const GET_REVIEWS = gql`
 
 function App() {
   const [reviews,setReviews] = useState<any>(null)
-  const {loading,data} = useQuery<any>(GET_REVIEWS)
+  const {loading,data} = useQuery<any>(GET_REVIEWS,{
+    onCompleted({reviews}){
+        setReviews(reviews);
+    }})
   console.log(data)
   
   return (
     <>
     {data?<div>{data.reviews[0].title}</div>:<div>loading</div>}
+    {reviews?<>{reviews[0].user.username}</>:<>None</>}
     <div>
       hello world
     </div>
+    <Products/>
     </>
   );
 }
