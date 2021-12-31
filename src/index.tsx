@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import store from './store'
+import {Provider} from 'react-redux'
 
 
 const client = new ApolloClient({
@@ -10,9 +12,11 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
+  <Provider store = {store}>
     <ApolloProvider client={client}>
       <App />
-    </ApolloProvider>,
+    </ApolloProvider>
+  </Provider>,
   document.getElementById('root')
 );
 
