@@ -77,6 +77,7 @@ import {
   
   export const login = (loginUser:any) => (dispatch:any) => {
     console.log('LOGIN ACTION HIT')
+    console.log('loginUser',loginUser)
     dispatch({
           type: LOGIN_SUCCESS,
           payload: { user: loginUser },
