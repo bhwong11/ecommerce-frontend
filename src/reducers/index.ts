@@ -7,7 +7,7 @@ import message from "./message";
 const rootReducer= combineReducers({
   auth:persistReducer(
       {
-        key: "form", // key for localStorage key, will be: "persist:form"
+        key: "user",
         storage,
         debug: true,
       },

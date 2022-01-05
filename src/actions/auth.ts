@@ -46,11 +46,6 @@ import {
           type: REGISTER_SUCCESS,
         });
   
-        dispatch({
-          type: SET_MESSAGE,
-          payload: data.message,
-        });
-  
         return data;
       },
       (error:any) => {
@@ -64,11 +59,7 @@ import {
         dispatch({
           type: REGISTER_FAIL,
         });
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
-        });
+
   
         return error;
       }
@@ -78,6 +69,7 @@ import {
   export const login = (loginUser:any) => (dispatch:any) => {
     console.log('LOGIN ACTION HIT')
     console.log('loginUser',loginUser)
+    localStorage.setItem('uid',loginUser.token)
     dispatch({
           type: LOGIN_SUCCESS,
           payload: { user: loginUser },

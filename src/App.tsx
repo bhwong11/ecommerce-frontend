@@ -34,6 +34,8 @@ const GET_REVIEWS = gql`
     loginUser(username:$username, password:$password) {
       _id,
       username,
+      cart,
+      token
     }
   }
   `
@@ -54,7 +56,7 @@ function App() {
     loginMutation({ variables: { username,password} })
     }
 
-  const {loading,data} = useQuery<any>(GET_REVIEWS,{
+  const {loading,data} = useQuery(GET_REVIEWS,{
     onCompleted({reviews}){
         setReviews(reviews);
     }})
