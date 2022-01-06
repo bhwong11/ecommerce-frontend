@@ -1,15 +1,15 @@
 import {
     REGISTER_SUCCESS,
-    REGISTER_FAIL,
     LOGIN_SUCCESS,
-    LOGIN_FAIL,
     LOGOUT,
   } from "../actions/types";
   
-  const user:any = JSON.parse(localStorage.getItem("user") || '{}');
-  const initialState = (user && Object.keys(user).length)
-    ? { isLoggedIn: true, user }
-    : { isLoggedIn: false, user: null };
+  //const user:any = JSON.parse(localStorage.getItem("user") || '{}');
+  //const initialState = (user && Object.keys(user).length)
+  //  ? { isLoggedIn: true, user }
+  //  : { isLoggedIn: false, user: null };
+
+  const initialState = { isLoggedIn: false, user: null };
   
   export default function (state:object = initialState, action:any) {
     const { type, payload } = action;

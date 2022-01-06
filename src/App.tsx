@@ -13,6 +13,7 @@ import {
 import Products from './pages/Products';
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./actions/auth";
+import RoutesNav from './config/routes';
 
 
 const GET_REVIEWS = gql`
@@ -35,6 +36,7 @@ const GET_REVIEWS = gql`
       _id,
       username,
       cart,
+      admin,
       token
     }
   }
@@ -65,6 +67,7 @@ function App() {
   
   return (
     <>
+    <RoutesNav/>
     {currentUser?<>{currentUser.username}</>:<>no username</>}
     {data?<div>{data.reviews[0].title}</div>:<div>loading</div>}
     {reviews?<>{reviews[0].user.username}</>:<>None</>}
