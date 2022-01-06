@@ -38,32 +38,10 @@ import {
   }
   `
   
-  export const register = (username:String, email:String, password:String) => (dispatch:any) => {
-    const [registerMutation, { data, loading, error }] = useMutation(REGISTER)
-    return registerMutation({ variables: { username,email,password} }).then(
-      (data:any) => {
-        dispatch({
+  export const register = (user:string) => (dispatch:any) => {
+    dispatch({
           type: REGISTER_SUCCESS,
         });
-  
-        return data;
-      },
-      (error:any) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-        dispatch({
-          type: REGISTER_FAIL,
-        });
-
-  
-        return error;
-      }
-    );
   };
   
   export const login = (loginUser:any) => (dispatch:any) => {
@@ -80,7 +58,7 @@ import {
   export const logout = () => (dispatch:any) => {
     console.log('LOGOUT!!!')
     localStorage.removeItem("uid");
-    localStorage.removeItem("user");
+    localStorage.removeItem("persist:user");
   
     dispatch({
       type: LOGOUT,

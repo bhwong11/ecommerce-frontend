@@ -20,11 +20,6 @@ import {
           ...state,
           isLoggedIn: false,
         };
-      case REGISTER_FAIL:
-        return {
-          ...state,
-          isLoggedIn: false,
-        };
       case LOGIN_SUCCESS:{
         return {
           ...state,
@@ -32,12 +27,6 @@ import {
           user: payload.user,
         }
       };
-      case LOGIN_FAIL:
-        return {
-          ...state,
-          isLoggedIn: false,
-          user: null,
-        };
       case LOGOUT:
         return {
           ...state,
