@@ -42,7 +42,7 @@ const GET_REVIEWS = gql`
   }
   `
 
-function App() {
+const App:React.FC=()=> {
   const [reviews,setReviews] = useState<any>(null)
   const [username,setUsername] = useState<any>(null)
   const [password,setPassword] = useState<any>(null)

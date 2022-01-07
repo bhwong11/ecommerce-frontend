@@ -3,6 +3,8 @@ import {
     LOGIN_SUCCESS,
     LOGOUT,
   } from "../actions/types";
+
+import { PURGE, REHYDRATE } from 'redux-persist';
   
   //const user:any = JSON.parse(localStorage.getItem("user") || '{}');
   //const initialState = (user && Object.keys(user).length)
@@ -26,6 +28,9 @@ import {
           isLoggedIn: true,
           user: payload.user,
         }
+      };
+      case PURGE:{
+        return {}
       };
       case LOGOUT:
         return {
