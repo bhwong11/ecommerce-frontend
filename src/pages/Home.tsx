@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import { useParams,Link,useNavigate } from "react-router-dom";
 import {
     useQuery,
     gql,
@@ -23,11 +24,11 @@ const Home:React.FC=()=>{
     return(
         <div>
             test HOMEPAGE
-            {categories?categories.map((category)=>{
+            {categories?categories.map((category:any)=>{
                 return(
                     <>
                     {category.name}
-                    <Link to={`/category/${category._id}`}>
+                    <Link to={`/category/${category._id}`}>Link</Link>
                     </>
                 )
             }):<div>Loading</div>}
