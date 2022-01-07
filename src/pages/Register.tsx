@@ -21,7 +21,7 @@ const Register:React.FC=()=>{
     const [username,setUsername] = useState<string>("")
     const [email,setEmail] = useState<string>("")
     const [password,setPassword] = useState<string>("")
-    const [error,setError]=useState<any>(null)
+    const [error,setError]=useState<string>("")
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [registerMutation, { data:registerUserMutation, loading:registerUserLoadingMutation, error:registerUserErrorMutation }] = useMutation(REGISTER,{
@@ -37,7 +37,8 @@ const Register:React.FC=()=>{
         e.preventDefault();
         try{
             await registerMutation({ variables: { username,email,password} })
-            if(!registerUserErrorMutation && !error){
+            if(!registerUserErrorMutation && !(error==='')){
+                setError('')
                 navigate('/login');
             }
         }catch(err:any){

@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/auth";
+import { useNavigate } from 'react-router-dom';
 import {
     useQuery,
     gql,
@@ -22,20 +23,31 @@ const LOGIN = gql`
 const Login:React.FC=()=>{
     const [username,setUsername] = useState<string>("")
     const [password,setPassword] = useState<string>("")
+    const [error,setError] = useState<string>("")
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [loginMutation, { data:loginUserMutation, loading:loginUserLoadingMutation, error:loginUserErrorMutation }] = useMutation(LOGIN,{
       onCompleted({loginUser}){
         console.log(loginUser)
           dispatch(login(loginUser))
       }})
-    const onLogin=(e: React.FormEvent<HTMLFormElement>)=>{
+    const onLogin=async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        loginMutation({ variables: { username,password} })
+        try{
+          await loginMutation({ variables: { username,password} })
+          if(!loginUserErrorMutation && !(error==='')){
+                navigate('/');
+            }
+        }catch(err:any){
+          setError(err.toString())
+        }
+        
 
     }
 
     return(
         <div>
+            {error?<div>Error {error}</div>:<></>}
             <form  onSubmit={onLogin}>
                 <label>
                     username:

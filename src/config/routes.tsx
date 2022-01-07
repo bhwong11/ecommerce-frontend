@@ -24,12 +24,11 @@ function RoutesNav(){
             {isLoggedIn?
             <nav className="navbar">
                 <span>{currentUser.username}</span>
-                <a href="/login" onClick={logoutHandler}>loggout</a>            
+                <Link to="/login" onClick={logoutHandler}>Loggout</Link>
             </nav>:
             <nav className="navbar">
-                
-                <a href="/login">login</a>
-                <a href="/register">register</a>
+                <Link to="/login">login</Link>
+                <Link to="/register">register</Link>
             </nav>}
             <Routes>
                     <Route path='/' element={<Home/>}/>
