@@ -7,6 +7,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Home from '../pages/Home';
 import Category from '../pages/Category';
+import Product from '../pages/Product';
 
 function RoutesNav(){
     const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
@@ -36,6 +37,7 @@ function RoutesNav(){
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='category/:categoryId' element={<Category/>}/>
+                    <Route path='product/:productId' element={<Product/>}/>
             </Routes>
         </BrowserRouter>
     )

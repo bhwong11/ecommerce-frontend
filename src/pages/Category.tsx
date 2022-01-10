@@ -2,7 +2,6 @@ import React,{useEffect,useState} from 'react';
 import { useParams,Link,useNavigate } from "react-router-dom";
 import {
     useQuery,
-    useLazyQuery,
     gql,
     useMutation,
   } from "@apollo/client";
@@ -11,16 +10,26 @@ const GET_CATEGORY = gql`
 query category($id:ID!){
     category(id:$id){
       name,
-      _id,
-      products{
+      _id
+    }
+  }
+`;
+
+const GET_PRODUCTS = gql`
+query productsCategorySearch($id:ID!){
+    productsCategorySearch(id:$id){
         _id,
         title,
         price,
         image,
         description,
-        user,
-        category,
-      }
+        user{
+          username,
+          email
+        },
+        category{
+          name
+        },
     }
   }
 `;
@@ -29,35 +38,40 @@ query category($id:ID!){
 const Category:React.FC=()=>{
     const { categoryId } = useParams();
     console.log('cat id',categoryId)
-    const { data, loading,error} = useQuery(GET_CATEGORY,{ 
+    const { data:categoryData, loading:loadingData,error:errorData} = useQuery(GET_CATEGORY,{ 
+        variables: { id:categoryId} 
+        })
+    const { data:productsData, loading:productsLoading,error:productsError} = useQuery(GET_PRODUCTS,{ 
         variables: { id:categoryId} 
         })
     return(
         <div>
-            Category Page
-            {error?<>{error.toString()}</>:<></>}
+            <div>Category Page</div>
+            {console.log(categoryData)}
             {
-                data?
+                categoryData?
                 <>
-                    Category: {data.category.name}
-                    {data.category.products?
-                    data.category.products.map((product:any)=>{
-                        return(
-                            <>
-                            <div>
-                                {product.name}
-                            </div>
-                            <div>
-                                {product._id}
-                            </div>
-                            </>
-                        )
-                    }):<div>loading...</div>}
+                    Category: {categoryData.category.name}
                 </>:
                 <>
                     loading categories...
                 </>
             }
+
+            {productsData?
+                productsData.productsCategorySearch.map((product:any)=>{
+                    return(
+                        <>
+                        <div>
+                            {product.title}
+                        </div>
+                        <div>
+                            {product._id}
+                            info: <Link to={`/product/${product._id}`}>Link</Link>
+                        </div>
+                        </>
+                    )
+                }):<div>No Products</div>}
             
         </div>
     )

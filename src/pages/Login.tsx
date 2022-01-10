@@ -33,9 +33,10 @@ const Login:React.FC=()=>{
       }})
     const onLogin=async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
+        setError('')
         try{
           await loginMutation({ variables: { username,password} })
-          if(!loginUserErrorMutation && !(error==='')){
+          if(!loginUserErrorMutation && error===''){
                 navigate('/');
             }
         }catch(err:any){
