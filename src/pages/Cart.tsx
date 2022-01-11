@@ -11,6 +11,7 @@ query cart($id:ID!){
     cart(id:$id){
       _id,
       products{
+          _id,
           title,
           price,
           image,
@@ -43,7 +44,7 @@ const CLEAR_CART = gql`
 const Cart = (props:any)=>{
     const {user:currentUser} = useSelector((state:any)=>state.auth)
     const [error,setError]=useState<string>("")
-    const [products,setProducts]=useState<any>([])
+    const [products,setProducts]=useState<any | null>(null)
     const { data:cartData, loading:cartLoading,error:cartError} = useQuery(GET_CART,{ 
         variables: { id:currentUser.cart},
         onCompleted({cart}){
@@ -69,6 +70,7 @@ const Cart = (props:any)=>{
             const productsCopy = [...products]
             const index = productsCopy.findIndex(e=>e._id===product)
             productsCopy.splice(index,1)
+            console.log('Products copy',productsCopy)
             setProducts(productsCopy)
         }catch(err){
             setError('500 server error, try again later')
@@ -86,7 +88,7 @@ const Cart = (props:any)=>{
     return(
         <div>
         {error}
-        {products.length>0?
+        {products?
             products.map((product:any)=>{
             return(
             <div>
@@ -94,7 +96,7 @@ const Cart = (props:any)=>{
                 <div>description: {product.description}</div>
                 <div>price: {product.price}</div>
                 <div>category: {product.category}</div>
-                <div>category: {product.category}</div>
+                <button onClick={(e:any)=>onRemove(currentUser.cart,product._id)}>Remove From Cart</button>
             </div>)
         }):<>loading cart data...</>}
         </div>
