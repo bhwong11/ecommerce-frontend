@@ -42,8 +42,14 @@ const CLEAR_CART = gql`
 
 const Cart = (props:any)=>{
     const {user:currentUser} = useSelector((state:any)=>state.auth)
+    const [error,setError]=useState<string>("")
+    const [products,setProducts]=useState<any>([])
     const { data:cartData, loading:cartLoading,error:cartError} = useQuery(GET_CART,{ 
-        variables: { id:currentUser.cart} 
+        variables: { id:currentUser.cart},
+        onCompleted({cart}){
+            console.log(cart)
+            setProducts(cart.products)
+            } 
         })
 
     const [removeFromCartMutation, { data:removeFromMutationData, loading:removeFromLoadingMutation, error:removeFromErrorMutation }] = useMutation(REMOVE_FROM_CART,{
@@ -55,18 +61,41 @@ const Cart = (props:any)=>{
       onCompleted({cart}){
         console.log(cart)
       }})
+    
+    const onRemove = async (id:string,product:string)=>{
+        try{
+            setError('')
+            await removeFromCartMutation({ variables: { id,product} })
+            const productsCopy = [...products]
+            const index = productsCopy.findIndex(e=>e._id===product)
+            productsCopy.splice(index,1)
+            setProducts(productsCopy)
+        }catch(err){
+            setError('500 server error, try again later')
+        }
+    }
+
+    if(!currentUser){
+        return(
+            <div>
+                Login To See This Page
+            </div>
+        )
+    }
 
     return(
         <div>
-        {cartData?
-        cartData.cart.product.map((product:any)=>{
+        {error}
+        {products.length>0?
+            products.map((product:any)=>{
+            return(
             <div>
                 <div>title: {product.title}</div>
                 <div>description: {product.description}</div>
                 <div>price: {product.price}</div>
                 <div>category: {product.category}</div>
                 <div>category: {product.category}</div>
-            </div>
+            </div>)
         }):<>loading cart data...</>}
         </div>
     )

@@ -8,6 +8,7 @@ import Register from '../pages/Register';
 import Home from '../pages/Home';
 import Category from '../pages/Category';
 import Product from '../pages/Product';
+import Cart from '../pages/Cart';
 
 function RoutesNav(){
     const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
@@ -26,6 +27,7 @@ function RoutesNav(){
             {isLoggedIn?
             <nav className="navbar">
                 <span>{currentUser.username}</span>
+                <Link to="/cart" >cart</Link>
                 <Link to="/login" onClick={logoutHandler}>Loggout</Link>
             </nav>:
             <nav className="navbar">
@@ -38,6 +40,7 @@ function RoutesNav(){
                     <Route path='register' element={<Register/>}/>
                     <Route path='category/:categoryId' element={<Category/>}/>
                     <Route path='product/:productId' element={<Product/>}/>
+                    <Route path='cart' element={<Cart/>}/>
             </Routes>
         </BrowserRouter>
     )
