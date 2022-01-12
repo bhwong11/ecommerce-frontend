@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import StripeWrapper from '../components/StripeWrapper';
 import {
     useQuery,
     gql,
@@ -41,6 +42,7 @@ const CLEAR_CART = gql`
         }
 `
 
+
 const Cart = (props:any)=>{
     const {user:currentUser} = useSelector((state:any)=>state.auth)
     const [error,setError]=useState<string>("")
@@ -62,6 +64,8 @@ const Cart = (props:any)=>{
       onCompleted({cart}){
         console.log(cart)
       }})
+    
+
     
     const onRemove = async (id:string,product:string)=>{
         try{
@@ -89,7 +93,8 @@ const Cart = (props:any)=>{
         <div>
         {error}
         {products?
-            products.map((product:any)=>{
+            <div>
+            {products.map((product:any)=>{
             return(
             <div>
                 <div>title: {product.title}</div>
@@ -98,8 +103,11 @@ const Cart = (props:any)=>{
                 <div>category: {product.category}</div>
                 <button onClick={(e:any)=>onRemove(currentUser.cart,product._id)}>Remove From Cart</button>
             </div>)
-        }):<>loading cart data...</>}
+        })}
+        <StripeWrapper amount={products?products.reduce((a:any,c:any)=>a.price+c.price):0}/>
+        </div>:<>loading cart data...</>}
         </div>
+        
     )
 }
 
