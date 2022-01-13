@@ -18,7 +18,14 @@ type props = {
 }
 
 const CheckoutForm = ({amount}:props) => {
-  console.log('AMOUNT',amount)
+  const [billingError,setBillingError] = useState<string>('');
+  const [name,setName]= useState<string>('');
+  const [email,setEmail]= useState<string>('');
+  const [city,setCity]= useState<string>('');
+  const [line1,setLine1]= useState<string>('');
+  const [state,setState]= useState<string>('');
+  const [postalCode,setPostalCode]= useState<string>('');
+
   const { data:stripeData, loading:stripeLoading,error:stripeError,refetch:stripeRefetch} = useQuery(GET_STRIPE_SK,{ 
         variables: { amount},
         onCompleted({stripeKey}){
@@ -26,11 +33,10 @@ const CheckoutForm = ({amount}:props) => {
             } 
         })
   const stripe = useStripe();
-  const elements = useElements();
+  let elements = useElements();
 
   const handleSubmit = async (event:any) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
+    setBillingError('')
     event.preventDefault();
 
     const cardElement:any = elements?elements.getElement("card"):null;
@@ -39,47 +45,80 @@ const CheckoutForm = ({amount}:props) => {
     }
 
     const billingDetails = {
-      name: 'test name',
-      email: 'test email',
+      name: name,
+      email: email,
       address: {
-        city: 'test city',
-        line1: 'test line 1',
-        state: 'test state',
-        postal_code: '42424'
+        city: city,
+        line1: line1,
+        state: state,
+        postal_code: postalCode
       }
     };
 
+    const clientSecret = stripeData.stripeKey
+  
     const paymentMethodReq:any = await stripe.createPaymentMethod({
         type: "card",
         card: cardElement,
         billing_details: billingDetails
       });
+    console.log('payment method',paymentMethodReq)
     if(!paymentMethodReq){
       return
     }
-
-    const clientSecret = stripeData.data.stripeKey
-    console.log('Client Secret',clientSecret)
-    console.log(paymentMethodReq.paymentMethod)
+    if(paymentMethodReq.error){
+      setBillingError(paymentMethodReq.error.message)
+      return
+    }
     
     const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethodReq.paymentMethod.id
       });
-
-
-
-    if (result.error) {
-      // Show error to your customer (for example, payment details incomplete)
-      console.log(result.error.message);
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+    
+    console.log('CONFIRM RESULT',result)
+    if(result.error){
+      setBillingError(result.error.message+"Try again later." || '')
+      return
     }
+
   };
   return (
     <form onSubmit={handleSubmit}>
+      {billingError}
       <CardElement/>
+      <div>Billing Information</div>
+      <div>
+        <div>
+        <label>
+          Name:
+          <input type="text" value={name} onChange={(e)=>setName(e.target.value)} />
+        </label>
+        </div>
+        <div>
+        <label>
+          Email:
+          <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} />
+        </label>
+        </div>
+        <div>
+        <label>
+          City:
+          <input type="text" value={city} onChange={(e)=>setCity(e.target.value)} />
+        </label>
+        </div>
+        <div>
+        <label>
+          Address Line 1:
+          <input type="text" value={line1} onChange={(e)=>setLine1(e.target.value)} />
+        </label>
+        </div>
+        <div>
+        <label>
+          Postal Code:
+          <input type="text" value={postalCode} onChange={(e)=>setPostalCode(e.target.value)} />
+        </label>
+        </div>
+      </div>
       <button disabled={!stripe}>Submit</button>
     </form>
   );
