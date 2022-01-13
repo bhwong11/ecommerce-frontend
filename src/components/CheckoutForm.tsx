@@ -9,7 +9,7 @@ import {
 
 const GET_STRIPE_SK = gql`
 query stripeKey($amount:Int!){
-    stripeKey($amount)
+    stripeKey(amount:$amount)
   }
 `
 
@@ -18,10 +18,11 @@ type props = {
 }
 
 const CheckoutForm = ({amount}:props) => {
-  const { data:stripeData, loading:stripeLoading,error:stripeError} = useQuery(GET_STRIPE_SK,{ 
+  console.log('AMOUNT',amount)
+  const { data:stripeData, loading:stripeLoading,error:stripeError,refetch:stripeRefetch} = useQuery(GET_STRIPE_SK,{ 
         variables: { amount},
         onCompleted({stripeKey}){
-            console.log(stripeKey)
+            console.log('STRIPE KEY',stripeKey)
             } 
         })
   const stripe = useStripe();
@@ -32,19 +33,39 @@ const CheckoutForm = ({amount}:props) => {
     // which would refresh the page.
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
+    const cardElement:any = elements?elements.getElement("card"):null;
+    if(!cardElement || !stripe){
+      return
     }
 
-    const result = await stripe.confirmPayment({
-      //`Elements` instance that was used to create the Payment Element
-      elements,
-      confirmParams: {
-        return_url: "https://my-site.com/order/123/complete",
-      },
-    });
+    const billingDetails = {
+      name: 'test name',
+      email: 'test email',
+      address: {
+        city: 'test city',
+        line1: 'test line 1',
+        state: 'test state',
+        postal_code: '42424'
+      }
+    };
+
+    const paymentMethodReq:any = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardElement,
+        billing_details: billingDetails
+      });
+    if(!paymentMethodReq){
+      return
+    }
+
+    const clientSecret = stripeData.data.stripeKey
+    console.log('Client Secret',clientSecret)
+    console.log(paymentMethodReq.paymentMethod)
+    
+    const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: paymentMethodReq.paymentMethod.id
+      });
+
 
 
     if (result.error) {
@@ -57,7 +78,7 @@ const CheckoutForm = ({amount}:props) => {
     }
   };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <CardElement/>
       <button disabled={!stripe}>Submit</button>
     </form>

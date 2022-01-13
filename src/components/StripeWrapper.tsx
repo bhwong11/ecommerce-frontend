@@ -19,25 +19,12 @@ type props = {
 }
 
 const StripeWrapper= ({amount}:props)=> {
-    let key = ''
-    const options = {
-        // passing the client secret obtained from the server
-        clientSecret: key,
-    };
-   const { data:stripeData, loading:stripeLoading,error:stripeError} = useQuery(GET_STRIPE_SK,{ 
-        onCompleted({stripeKey}){
-            console.log(stripeKey)
-            options.clientSecret = stripeKey.toString()
-            } 
-        })
 
   return (
     <div>
-    {stripeData?
     <Elements stripe={stripePromise}>
       <CheckoutForm amount={amount}/>
-    </Elements>:<></>
-    }
+    </Elements>
     </div>
   );
 };

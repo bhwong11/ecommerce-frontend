@@ -47,6 +47,7 @@ const Cart = (props:any)=>{
     const {user:currentUser} = useSelector((state:any)=>state.auth)
     const [error,setError]=useState<string>("")
     const [products,setProducts]=useState<any | null>(null)
+    const [amount,setAmount] = useState<number>(0)
     const { data:cartData, loading:cartLoading,error:cartError} = useQuery(GET_CART,{ 
         variables: { id:currentUser.cart},
         onCompleted({cart}){
@@ -104,7 +105,7 @@ const Cart = (props:any)=>{
                 <button onClick={(e:any)=>onRemove(currentUser.cart,product._id)}>Remove From Cart</button>
             </div>)
         })}
-        <StripeWrapper amount={products?products.reduce((a:any,c:any)=>a.price+c.price):0}/>
+        <StripeWrapper amount={products?products.map((product:any)=>product.price).reduce((a:any,c:any)=>a+c):0}/>
         </div>:<>loading cart data...</>}
         </div>
         
