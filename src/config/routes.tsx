@@ -9,6 +9,7 @@ import Home from '../pages/Home';
 import Category from '../pages/Category';
 import Product from '../pages/Product';
 import Cart from '../pages/Cart';
+import ErrorPage404 from '../pages/ErrorPage404';
 
 function RoutesNav(){
     const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
@@ -41,6 +42,7 @@ function RoutesNav(){
                     <Route path='category/:categoryId' element={<Category/>}/>
                     <Route path='product/:productId' element={<Product/>}/>
                     <Route path='cart' element={<Cart/>}/>
+                    <Route path="*" element={<ErrorPage404/>}/>
             </Routes>
         </BrowserRouter>
     )
