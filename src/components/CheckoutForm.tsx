@@ -27,7 +27,7 @@ const CheckoutForm = ({amount}:props) => {
   const [postalCode,setPostalCode]= useState<string>('');
 
   const { data:stripeData, loading:stripeLoading,error:stripeError,refetch:stripeRefetch} = useQuery(GET_STRIPE_SK,{ 
-        variables: { amount},
+        variables: { amount:(amount*100)},
         onCompleted({stripeKey}){
             console.log('STRIPE KEY',stripeKey)
             } 

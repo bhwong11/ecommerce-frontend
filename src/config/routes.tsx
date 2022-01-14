@@ -7,7 +7,9 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Home from '../pages/Home';
 import Category from '../pages/Category';
+import CreateCategory from '../pages/CreateCategory';
 import Product from '../pages/Product';
+import CreateProduct from '../pages/CreateProduct';
 import Cart from '../pages/Cart';
 import ErrorPage404 from '../pages/ErrorPage404';
 
@@ -39,7 +41,9 @@ function RoutesNav(){
                     <Route path='/' element={<Home/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
+                    <Route path='category/create' element={<CreateCategory/>}/>
                     <Route path='category/:categoryId' element={<Category/>}/>
+                    <Route path='product/create' element={<CreateProduct/>}/>
                     <Route path='product/:productId' element={<Product/>}/>
                     <Route path='cart' element={<Cart/>}/>
                     <Route path="*" element={<ErrorPage404/>}/>
