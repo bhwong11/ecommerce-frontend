@@ -28,7 +28,6 @@ const Login:React.FC=()=>{
     const navigate = useNavigate();
     const [loginMutation, { data:loginUserMutation, loading:loginUserLoadingMutation, error:loginUserErrorMutation }] = useMutation(LOGIN,{
       onCompleted({loginUser}){
-        console.log(loginUser)
           dispatch(login(loginUser))
       }})
     const onLogin=async (e: React.FormEvent<HTMLFormElement>)=>{

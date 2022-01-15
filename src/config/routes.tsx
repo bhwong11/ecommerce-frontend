@@ -8,8 +8,10 @@ import Register from '../pages/Register';
 import Home from '../pages/Home';
 import Category from '../pages/Category';
 import CreateCategory from '../pages/CreateCategory';
+import EditCategory from '../pages/EditCategory';
 import Product from '../pages/Product';
 import CreateProduct from '../pages/CreateProduct';
+import EditProduct from '../pages/EditProduct';
 import Cart from '../pages/Cart';
 import ErrorPage404 from '../pages/ErrorPage404';
 
@@ -31,6 +33,7 @@ function RoutesNav(){
             <nav className="navbar">
                 <span>{currentUser.username}</span>
                 <Link to="/cart" >cart</Link>
+                <Link to="/" >Home</Link>
                 <Link to="/login" onClick={logoutHandler}>Loggout</Link>
             </nav>:
             <nav className="navbar">
@@ -43,8 +46,10 @@ function RoutesNav(){
                     <Route path='register' element={<Register/>}/>
                     <Route path='category/create' element={<CreateCategory/>}/>
                     <Route path='category/:categoryId' element={<Category/>}/>
+                    <Route path='category/:categoryId/edit' element={<EditCategory/>}/>
                     <Route path='product/create' element={<CreateProduct/>}/>
                     <Route path='product/:productId' element={<Product/>}/>
+                    <Route path='product/:productId/edit' element={<EditProduct/>}/>
                     <Route path='cart' element={<Cart/>}/>
                     <Route path="*" element={<ErrorPage404/>}/>
             </Routes>

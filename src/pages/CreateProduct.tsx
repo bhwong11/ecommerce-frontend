@@ -33,7 +33,9 @@ const CreateProduct:React.FC =()=>{
     const [image,setImage] = useState<string>('')
     const [categoryId,setCategoryId] = useState<string>('')
     const [description,setDescription] = useState<string>('')
-    const [createProductMutation, { data:createProductUserMutation, loading:createProductUserLoadingMutation, error:createProductUserErrorMutation }] = useMutation(CREATE_PRODUCT,{
+    const [success,setSuccess] = useState<string>('')
+    const [error,setError] = useState<string>('')
+    const [createProductMutation, { data:createProductMutationData, loading:createProductLoadingMutation, error:createProductErrorMutation }] = useMutation(CREATE_PRODUCT,{
       onCompleted({product}){
         console.log(product)
       }})
@@ -42,14 +44,27 @@ const CreateProduct:React.FC =()=>{
             console.log(categories)
         }})
     
-    const createProductHandler=(e:any)=>{
+    
+    const createProductHandler=async(e:any)=>{
         e.preventDefault()
-        createProductMutation({ variables: { title,price,image,description,user:currentUser._id,category:categoryId} })
+        try{
+          await createProductMutation({ variables: { title,price,image,description,user:currentUser._id,category:categoryId} })
+          setSuccess('successfully created Product')
+          setTitle('')
+          setPrice(0)
+          setImage('')
+          setDescription('')
+        }catch(err){
+          setError('500 server error on product creation, try again later')
+        }
+        
     }
 
     return(
         <div>
             <div>Create Product</div>
+            <div>{success}</div>
+            <div>{error}</div>
             <form onSubmit={createProductHandler}>
             <div>
                 <label>
