@@ -28,15 +28,21 @@ const Login:React.FC=()=>{
     const navigate = useNavigate();
     const [loginMutation, { data:loginUserMutation, loading:loginUserLoadingMutation, error:loginUserErrorMutation }] = useMutation(LOGIN,{
       onCompleted({loginUser}){
-          dispatch(login(loginUser))
+          if(loginUser._id!=='none'){
+            dispatch(login(loginUser))
+          }else{
+            setError('invalid login')
+          }
       }})
     const onLogin=async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         setError('')
         try{
-          await loginMutation({ variables: { username,password} })
+          const loginData = await loginMutation({ variables: { username,password} })
           if(!loginUserErrorMutation && error===''){
-                navigate('/');
+                if(loginData.data.loginUser._id!=='none'){
+                  navigate('/');
+                }
             }
         }catch(err:any){
           setError(err.toString())

@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import { useParams,Link,useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
     useQuery,
     gql,
@@ -37,7 +38,8 @@ query productsCategorySearch($id:ID!){
 
 const Category:React.FC=()=>{
     const { categoryId } = useParams();
-    console.log('cat id',categoryId)
+    const nagivate = useNavigate();
+    const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
     const { data:categoryData, loading:loadingData,error:errorData} = useQuery(GET_CATEGORY,{ 
         variables: { id:categoryId} 
         })
@@ -72,6 +74,9 @@ const Category:React.FC=()=>{
                         </>
                     )
                 }):<div>No Products</div>}
+            {currentUser?currentUser.admin?<div>
+                <Link to={`/category/${categoryId}/edit`}>Edit Category</Link>
+                </div>:<></>:<></>}
             
         </div>
     )

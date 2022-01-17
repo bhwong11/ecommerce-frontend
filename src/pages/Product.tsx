@@ -55,6 +55,7 @@ const ADD_TO_CART = gql`
 
 const Product:React.FC = (props:any)=>{
     const {productId} = useParams()
+    const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
     const { data:productData, loading:productLoading,error:productError} = useQuery(GET_PRODUCT,{ 
         variables: { id:productId} 
         })
@@ -68,7 +69,6 @@ const Product:React.FC = (props:any)=>{
       }})
     
     const [addToCartSuccess,setAddToCartSuccess] =useState<string>('')
-    const {user:currentUser} = useSelector((state: any)=>state.auth)
 
     const addToCart = async (id:string)=>{
         try{
@@ -107,9 +107,14 @@ const Product:React.FC = (props:any)=>{
                         )
                     }):<>loading reviews...</>}
                 </div>
+                {currentUser.admin?<div>
+                <Link to={`/product/${productData.product._id}/edit`}>Edit Product</Link>
+                </div>:<></>}
         </div>:
-        <>loading products...</>
+        <>loading product...</>
         }
+
+        
 
         </div>
     )
