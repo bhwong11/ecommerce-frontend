@@ -53,7 +53,7 @@ const ADD_TO_CART = gql`
     }
 `
 
-const Product:React.FC = (props:any)=>{
+const Product:React.FC = ()=>{
     const {productId} = useParams()
     const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
     const { data:productData, loading:productLoading,error:productError} = useQuery(GET_PRODUCT,{ 
@@ -113,9 +113,6 @@ const Product:React.FC = (props:any)=>{
         </div>:
         <>loading product...</>
         }
-
-        
-
         </div>
     )
 }

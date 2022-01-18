@@ -54,7 +54,7 @@ const EditCategory:React.FC=()=>{
         console.log(category)
       }})
 
-    const editCategoryHandler =async(e:any)=>{
+    const editCategoryHandler =async(e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         setSuccess('')
         setError('')
@@ -67,7 +67,7 @@ const EditCategory:React.FC=()=>{
         }
     }
 
-    const deleteCategoryHandler=async(e:any)=>{
+    const deleteCategoryHandler=async(e:React.MouseEvent<HTMLElement>)=>{
         e.preventDefault()
         setSuccess('')
         setError('')

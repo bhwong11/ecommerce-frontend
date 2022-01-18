@@ -35,7 +35,7 @@ const CheckoutForm = ({amount}:props) => {
   const stripe = useStripe();
   let elements = useElements();
 
-  const handleSubmit = async (event:any) => {
+  const handleSubmit = async (event:React.SyntheticEvent) => {
     setBillingError('')
     event.preventDefault();
 

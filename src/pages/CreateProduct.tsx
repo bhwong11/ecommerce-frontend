@@ -45,7 +45,7 @@ const CreateProduct:React.FC =()=>{
         }})
     
     
-    const createProductHandler=async(e:any)=>{
+    const createProductHandler=async(e:React.SyntheticEvent)=>{
         e.preventDefault()
         try{
           await createProductMutation({ variables: { title,price,image,description,user:currentUser._id,category:categoryId} })

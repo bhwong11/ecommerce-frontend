@@ -35,6 +35,24 @@ query productsCategorySearch($id:ID!){
   }
 `;
   
+type Category={
+    name:string;
+  }
+
+type User = {
+    username:string;
+    email:string;
+  }
+
+type Product={
+    _id:string;
+    title:string;
+    price:number;
+    image:string;
+    description:string;
+    user:User;
+    category:Category;
+  }
 
 const Category:React.FC=()=>{
     const { categoryId } = useParams();
@@ -61,7 +79,7 @@ const Category:React.FC=()=>{
             }
 
             {productsData?
-                productsData.productsCategorySearch.map((product:any)=>{
+                productsData.productsCategorySearch.map((product:Product)=>{
                     return(
                         <>
                         <div>

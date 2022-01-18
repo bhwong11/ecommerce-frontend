@@ -45,7 +45,7 @@ const Login:React.FC=()=>{
                 }
             }
         }catch(err:any){
-          setError(err.toString())
+          setError('500 error with login, try again later')
         }
         
 

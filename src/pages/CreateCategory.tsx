@@ -25,7 +25,7 @@ const CreateCategory:React.FC =()=>{
       onCompleted({category}){
         console.log(category)
       }})
-    const onSubmit=async (e:any)=>{
+    const onSubmit=async (e:React.SyntheticEvent)=>{
         setSuccess('')
         setError('')
         e.preventDefault();

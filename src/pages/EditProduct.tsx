@@ -95,7 +95,7 @@ const EditProduct:React.FC=()=>{
         console.log(Product)
       }})
 
-    const editProductHandler=async(e:any)=>{
+    const editProductHandler=async(e:React.SyntheticEvent)=>{
         e.preventDefault()
         try{
           await updateProductMutation({ variables: { id:productId,title,price,image,description,user:currentUser._id,category:categoryId} })
@@ -107,7 +107,7 @@ const EditProduct:React.FC=()=>{
         
     }
 
-    const deleteProductHandler=async(e:any)=>{
+    const deleteProductHandler=async(e:React.MouseEvent<HTMLElement>)=>{
         e.preventDefault()
         setSuccess('')
         setError('')

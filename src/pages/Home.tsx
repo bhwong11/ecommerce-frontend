@@ -15,10 +15,15 @@ const GET_CATEGORIES = gql`
     }
   }`;
 
+type Category={
+  name:string;
+  _id:string;
+}
+
 
 const Home:React.FC=()=>{
     const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
-    const [categories,setCategories] = useState<any>(null)
+    const [categories,setCategories] = useState<Category[] | null>(null)
     const {loading,data} = useQuery(GET_CATEGORIES,{
     onCompleted({categories}){
         setCategories(categories);
@@ -26,7 +31,7 @@ const Home:React.FC=()=>{
     return(
         <div>
             test HOMEPAGE
-            {categories?categories.map((category:any)=>{
+            {categories?categories.map((category:Category)=>{
                 return(
                     <>
                     {category.name}
@@ -36,6 +41,7 @@ const Home:React.FC=()=>{
             }):<div>Loading</div>}
             {currentUser.admin?<div>
             <Link to="/category/create">Create Category</Link>
+            <Link to="/Product/create">Create Product</Link>
             </div>:<></>}
         </div>
     )
