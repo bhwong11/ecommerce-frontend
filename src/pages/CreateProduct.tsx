@@ -9,7 +9,7 @@ import {
   } from "@apollo/client";
 
 const CREATE_PRODUCT = gql`
-  mutation createProduct($title:String!,$price:Int!,$image:String!,$description:String!,$user:ID!,$category:ID!) {
+  mutation createProduct($title:String!,$price:Int!,$image:Upload,$description:String!,$user:ID!,$category:ID!) {
     createProduct(title:$title,price:$price,image:$image,description:$description,user:$user,category:$category) {
       _id,
       title,
@@ -30,7 +30,7 @@ const CreateProduct:React.FC =()=>{
     const {user:currentUser} = useSelector((state:any)=>state.auth)
     const [title,setTitle] = useState<string>('')
     const [price,setPrice] = useState<number>(0)
-    const [image,setImage] = useState<string>('')
+    const [image,setImage] = useState<File | null >(null)
     const [categoryId,setCategoryId] = useState<string>('')
     const [description,setDescription] = useState<string>('')
     const [success,setSuccess] = useState<string>('')
@@ -52,7 +52,7 @@ const CreateProduct:React.FC =()=>{
           setSuccess('successfully created Product')
           setTitle('')
           setPrice(0)
-          setImage('')
+          setImage(null)
           setDescription('')
         }catch(err){
           setError('500 server error on product creation, try again later')
@@ -81,7 +81,13 @@ const CreateProduct:React.FC =()=>{
             <div>
                 <label>
                 Image:
-                <input value={image} onChange={(e)=>setImage(e.target.value)}/>
+                <input type="file" accept="image/*" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
+                  const fileList = e.target.files;
+                  if(!fileList){
+                    return
+                  }
+                  setImage(fileList[0])
+                  }}/>
                 </label>
             </div>
             <div>

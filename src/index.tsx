@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import configureStore from './store'
-import {Provider} from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
+import { ApolloClient,ApolloLink, ApolloProvider, InMemoryCache } from '@apollo/client';
+import configureStore from './store';
+import {Provider} from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import {createUploadLink} from 'apollo-upload-client';
 
 const {store,persistor} = configureStore();
 
+const link = createUploadLink({
+  uri:'http://localhost:4000/',
+})
+
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
+  link:(link as unknown) as ApolloLink,
   cache: new InMemoryCache(),
   headers: {
     authorization: localStorage.getItem('token') || '',
