@@ -87,6 +87,7 @@ const CreateProduct:React.FC =()=>{
                     return
                   }
                   setImage(fileList[0])
+                  console.log('New File',fileList[0])
                   }}/>
                 </label>
             </div>
