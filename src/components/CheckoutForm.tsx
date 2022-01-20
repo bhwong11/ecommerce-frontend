@@ -13,11 +13,23 @@ query stripeKey($amount:Int!){
   }
 `
 
+const CLEAR_CART = gql`
+    mutation clearCart($id:ID!) {
+            clearCart(id:$id) {
+            _id,
+            user,
+            products
+            }
+        }
+`
+
 type props = {
     amount:number
+    setProducts:(value: any) => void
+    cartId:string
 }
 
-const CheckoutForm = ({amount}:props) => {
+const CheckoutForm = ({amount,cartId,setProducts}:props) => {
   const [billingError,setBillingError] = useState<string>('');
   const [name,setName]= useState<string>('');
   const [email,setEmail]= useState<string>('');
@@ -32,6 +44,10 @@ const CheckoutForm = ({amount}:props) => {
             console.log('STRIPE KEY',stripeKey)
             } 
         })
+  const [clearCartMutation, { data:clearMutationData, loading:clearLoadingMutation, error:clearErrorMutation }] = useMutation(CLEAR_CART,{
+    onCompleted({cart}){
+      console.log(cart)
+    }})
   const stripe = useStripe();
   let elements = useElements();
 
@@ -80,6 +96,14 @@ const CheckoutForm = ({amount}:props) => {
       setBillingError(result.error.message+"Try again later." || '')
       return
     }
+
+    setProducts([])
+    clearCartMutation({ 
+      variables: { id:cartId},
+      onCompleted({cart}){
+          console.log('CART',cart)
+          } 
+      })
 
   };
   return (

@@ -36,8 +36,8 @@ const Register:React.FC=()=>{
     const onRegister=async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         try{
-            await registerMutation({ variables: { username,email,password} })
-            if(!registerUserErrorMutation && !(error==='')){
+            const registerUser = await registerMutation({ variables: { username,email,password} })
+            if(!registerUserErrorMutation && registerUser.data.registerUser._id!=='none'){
                 setError('')
                 navigate('/login');
             }

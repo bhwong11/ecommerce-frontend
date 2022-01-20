@@ -16,14 +16,16 @@ query stripeKey{
 const stripePromise = loadStripe('pk_test_51K8pRALPWjzsx1Z55vhwprkiC1sybJI3sJphKq8F61p8Y0U5xa7PcoldNYTnc2fbi9fd5YgCMD1FaRQZtNQN6o1s00FQvkqATt');
 type props = {
     amount:number
+    setProducts:(value: any) => void
+    cartId:string
 }
 
-const StripeWrapper= ({amount}:props)=> {
+const StripeWrapper= ({amount,setProducts,cartId}:props)=> {
 
   return (
     <div>
     <Elements stripe={stripePromise}>
-      <CheckoutForm amount={amount}/>
+      <CheckoutForm amount={amount} cartId={cartId} setProducts={setProducts}/>
     </Elements>
     </div>
   );

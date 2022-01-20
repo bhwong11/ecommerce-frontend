@@ -10,7 +10,7 @@ import {createUploadLink} from 'apollo-upload-client';
 const {store,persistor} = configureStore();
 
 const link = createUploadLink({
-  uri:'http://localhost:4000/',
+  uri:'https://ecommerce-backend-bhwong.herokuapp.com/',
 })
 
 const client = new ApolloClient({

@@ -30,15 +30,16 @@ const Home:React.FC=()=>{
     }})
     return(
         <div>
-            test HOMEPAGE
+            <div className="flex justify-center text-stone-200 text-4xl">HOMEPAGE</div>
+            <div className="flex justify-center text-cyan-200">Product Categories</div>
             {categories?categories.map((category:Category)=>{
                 return(
-                    <>
-                    {category.name}
-                    <Link to={`/category/${category._id}`}>Link</Link>
-                    </>
+                  <Link to={`/category/${category._id}`}><div className="flex justify-center border-2 rounded-md border-cyan-200 border-solid p-2 text-cyan-200 mx-12 my-2 hover:scale-125 hover:bg-stone-800 transition ease-in-out">
+                    <div>{category.name}</div>
+                    </div>
+                    </Link>
                 )
-            }):<div>Loading</div>}
+            }):<div>Loading...</div>}
             {currentUser.admin?<div>
             <Link to="/category/create">Create Category</Link>
             <Link to="/Product/create">Create Product</Link>

@@ -50,6 +50,7 @@ const Cart = (props:any)=>{
     const [amount,setAmount] = useState<number>(0)
     const { data:cartData, loading:cartLoading,error:cartError} = useQuery(GET_CART,{ 
         variables: { id:currentUser.cart},
+        pollInterval: 500,
         onCompleted({cart}){
             console.log(cart)
             setProducts(cart.products)
@@ -75,7 +76,6 @@ const Cart = (props:any)=>{
             const productsCopy = [...products]
             const index = productsCopy.findIndex(e=>e._id===product)
             productsCopy.splice(index,1)
-            console.log('Products copy',productsCopy)
             setProducts(productsCopy)
         }catch(err){
             setError('500 server error, try again later')
@@ -105,7 +105,8 @@ const Cart = (props:any)=>{
                 <button onClick={(e:any)=>onRemove(currentUser.cart,product._id)}>Remove From Cart</button>
             </div>)
         })}
-        <StripeWrapper amount={products?products.map((product:any)=>product.price).reduce((a:any,c:any)=>a+c):0}/>
+        {products.length>0?<StripeWrapper setProducts={setProducts} cartId={currentUser.cart} amount={products&&products.length>0?products.map((product:any)=>product.price).reduce((a:any,c:any)=>a+c):0}/>:<div>Add Products to get started!</div>}
+        
         </div>:<>loading cart data...</>}
         </div>
         

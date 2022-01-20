@@ -40,15 +40,15 @@ function RoutesNav(){
     return (
         <BrowserRouter>
             {isLoggedIn?
-            <nav className="navbar">
-                <span>{currentUser.username}</span>
-                <Link to="/cart" >cart</Link>
-                <Link to="/" >Home</Link>
-                <Link to="/login" onClick={logoutHandler}>Loggout</Link>
+            <nav className="navbar flex justify-end p-2 bg-stone-800 mb-8">
+                <div className="mx-2 text-stone-200">{currentUser.username}</div>
+                <Link to="/cart" ><div className="mx-2 text-cyan-200">Cart</div></Link>
+                <Link to="/" ><div className="mx-2 text-cyan-200">Home</div></Link>
+                <Link to="/login" onClick={logoutHandler}><div className="mx-2 text-cyan-200">Logout</div></Link>
             </nav>:
-            <nav className="navbar">
-                <Link to="/login">login</Link>
-                <Link to="/register">register</Link>
+            <nav className="navbar flex justify-end p-2 bg-stone-800 mb-8 ">
+                <Link to="/login"><div className="mx-2 text-cyan-200">login</div></Link>
+                <Link to="/register"><div className="mx-2 text-cyan-200">register</div></Link>
             </nav>}
             <Routes>
                     <Route path='/' element={
