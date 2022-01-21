@@ -49,7 +49,7 @@ const CreateCategory:React.FC =()=>{
                 <input className="rounded text-stone-800" value={categoryName} onChange={(e)=>setCategoryName(e.target.value)}/>
               </label>
               <div className="flex justify-center">
-                <button className="bg-stone-200 text-slate-600 rounded p-2 m-2">create</button>
+                <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:text-stone-200 hover:bg-slate-600  transition:ease-in-out">create</button>
               </div>
             </form>
         </div>

@@ -62,33 +62,33 @@ const CreateProduct:React.FC =()=>{
     }
 
     return(
-        <div>
-            <div>Create Product</div>
-            <div>{success}</div>
-            <div>{error}</div>
-            <form onSubmit={createProductHandler}>
+        <div className="flex flex-col items-center text-stone-200">
+            <div className="text-2xl m-2">Create Product</div>
+            <div className="text-lime-400">{success}</div>
+            <div className="text-red-400">{error}</div>
+            <form className="border-2 border-stone-200 rounded p-6" onSubmit={createProductHandler}>
             <div>
                 <label>
-                Title:
-                <input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+                <div>Title:</div>
+                <input className="rounded p-1 text-stone-800" value={title} onChange={(e)=>setTitle(e.target.value)}/>
                 </label>
             </div>
             <div>
                 <label>
-                Price:
-                <input type='text' pattern="[0-9]*" value={price} onChange={(e)=>setPrice(parseInt(e.target.value) || 0)}/>
+                <div>Price:</div>
+                <input className="rounded p-1 text-stone-800" type='text' pattern="[0-9]*" value={price} onChange={(e)=>setPrice(parseInt(e.target.value) || 0)}/>
                 </label>
             </div>
             <div>
                 <label>
-                Image:
-                <input onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setImage(e.target.value)}/>
+                <div>Image:</div>
+                <input className="rounded p-1 text-stone-800" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setImage(e.target.value)}/>
                 </label>
             </div>
             <div>
                 <label>
-                Category:
-                <select value={categoryId} onChange={(e)=>setCategoryId(e.target.value)}>
+                <div>Category:</div>
+                <select className="rounded p-1 text-stone-800" value={categoryId} onChange={(e)=>setCategoryId(e.target.value)}>
                 {console.log('CATEOGRY DATA',categoriesData)}
                 {categoriesData?categoriesData.categories.map((category:any)=>{
                     return <option value={category._id}>{category.name}</option>
@@ -98,11 +98,14 @@ const CreateProduct:React.FC =()=>{
             </div>
             <div>
                 <label>
-                description:
-                <input value={description} onChange={(e)=>setDescription(e.target.value)}/>
+                <div>description:</div>
+                <textarea className="rounded p-1 text-stone-800" value={description} onChange={(e)=>setDescription(e.target.value)}>
+                  </textarea>
                 </label>
             </div>
-            <button>Create Product</button>
+            <div className="flex justify-center">
+              <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:text-stone-200 hover:bg-slate-600  transition:ease-in-out">Create Product</button>
+            </div>
             </form>
         </div>
     )
