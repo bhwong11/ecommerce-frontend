@@ -18,7 +18,7 @@ import RoutesNav from './config/routes';
 
 const App:React.FC=()=> {  
   return (
-    <div className="h-screen bg-slate-600">
+    <div className="min-h-screen bg-slate-600">
     <RoutesNav/>
     </div>
   );

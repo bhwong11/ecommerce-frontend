@@ -72,7 +72,7 @@ const EditCategory:React.FC=()=>{
         setSuccess('')
         setError('')
         try{
-            await deleteCategoryMutation({ variables: { id:categoryId,name:categoryName} })
+            await deleteCategoryMutation({ variables: { id:categoryId} })
             navigate('/')
         }catch(err){
             setError('500 server error on delete')

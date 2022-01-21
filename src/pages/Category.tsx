@@ -56,7 +56,6 @@ type Product={
 
 const Category:React.FC=()=>{
     const { categoryId } = useParams();
-    const nagivate = useNavigate();
     const {user:currentUser, isLoggedIn:isLoggedIn} = useSelector((state: any)=>state.auth)
     const { data:categoryData, loading:loadingData,error:errorData} = useQuery(GET_CATEGORY,{ 
         variables: { id:categoryId} 
@@ -66,22 +65,21 @@ const Category:React.FC=()=>{
         })
     return(
         <div>
-            <div>Category Page</div>
-            {console.log(categoryData)}
             {
                 categoryData?
-                <>
+                <div className="flex justify-center">
                     Category: {categoryData.category.name}
-                </>:
+                </div>:
                 <>
                     loading categories...
                 </>
             }
 
             {productsData?
-                productsData.productsCategorySearch.map((product:Product)=>{
+              <div className="flex flex-wrap justify-evenly">
+                {productsData.productsCategorySearch.map((product:Product)=>{
                     return(
-                        <>
+                        <div>
                         <div>
                             {product.title}
                         </div>
@@ -89,9 +87,10 @@ const Category:React.FC=()=>{
                             {product._id}
                             info: <Link to={`/product/${product._id}`}>Link</Link>
                         </div>
-                        </>
+                        </div>
                     )
-                }):<div>No Products</div>}
+                })}
+                </div>:<div>No Products</div>}
             {currentUser?currentUser.admin?<div>
                 <Link to={`/category/${categoryId}/edit`}>Edit Category</Link>
                 </div>:<></>:<></>}

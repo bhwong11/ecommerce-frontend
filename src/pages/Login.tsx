@@ -52,18 +52,18 @@ const Login:React.FC=()=>{
     }
 
     return(
-        <div>
+        <div className="flex justify-center border-2 border-stone-200 rounded-md mx-80 p-4">
             {error?<div>Error {error}</div>:<></>}
-            <form  onSubmit={onLogin}>
+            <form className="flex flex-col" onSubmit={onLogin}>
                 <label>
-                    username:
-                    <input type="text" value={username} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setUsername(e.target.value)}/>
+                <div className="text-stone-200">username:</div>
+                    <input className="rounded-md" type="text" value={username} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setUsername(e.target.value)}/>
                 </label>
                 <label>
-                    password:
-                    <input type="password" value={password} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)}/>
+                <div className="text-stone-200">password:</div>
+                    <input className="rounded-md" type="password" value={password} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)}/>
                 </label>
-                <button>login</button>
+                <button className="mt-2 border-2 rounded bg-stone-200 text-slate-600 hover:bg-slate-600 hover:border-stone-200 hover:text-stone-200 transition:ease-in-out">login</button>
             </form>
         </div>
     )

@@ -40,9 +40,10 @@ const Home:React.FC=()=>{
                     </Link>
                 )
             }):<div>Loading...</div>}
-            {currentUser.admin?<div>
-            <Link to="/category/create">Create Category</Link>
-            <Link to="/Product/create">Create Product</Link>
+            {currentUser.admin?
+            <div className="flex flex-col items-center">
+              <div className="text-slate-600 bg-stone-200 rounded p-2"><Link to="/category/create">Create Category</Link></div>
+              <div className="text-slate-600 bg-stone-200 rounded p-2 mt-2"><Link to="/Product/create">Create Product</Link></div>
             </div>:<></>}
         </div>
     )

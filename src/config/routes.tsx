@@ -13,6 +13,7 @@ import Product from '../pages/Product';
 import CreateProduct from '../pages/CreateProduct';
 import EditProduct from '../pages/EditProduct';
 import Cart from '../pages/Cart';
+import ReviewEdit from '../pages/ReviewEdit';
 import ErrorPage404 from '../pages/ErrorPage404';
 
 function RoutesNav(){
@@ -91,6 +92,11 @@ function RoutesNav(){
                     <Route path='cart' element={
                     <RequireAuth redirectTo="/login">
                         <Cart/>
+                    </RequireAuth>
+                    }/>
+                    <Route path='review/:reviewId/edit' element={
+                    <RequireAuth redirectTo="/login">
+                        <ReviewEdit/>
                     </RequireAuth>
                     }/>
                     <Route path="*" element={<ErrorPage404/>}/>
