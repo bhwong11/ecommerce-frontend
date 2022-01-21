@@ -39,13 +39,18 @@ const CreateCategory:React.FC =()=>{
         }
     }
     return(
-        <div>
-            {success}
-            {error}
-            <div>Create Category</div>
-            <form onSubmit={onSubmit}>
-                <input value={categoryName} onChange={(e)=>setCategoryName(e.target.value)}/>
-                <button>create</button>
+        <div className="flex flex-col items-center text-stone-200">
+            <div className="text-lime-400">{success}</div>
+            <div className="text-red-400">{error}</div>
+            <div className="text-2xl text-stone-200 mb-2">Create Category</div>
+            <form className="border-2 border-stone-200 rounded p-4" onSubmit={onSubmit}>
+              <label>
+                <div className="flex justify-center">Category Name:</div>
+                <input className="rounded text-stone-800" value={categoryName} onChange={(e)=>setCategoryName(e.target.value)}/>
+              </label>
+              <div className="flex justify-center">
+                <button className="bg-stone-200 text-slate-600 rounded p-2 m-2">create</button>
+              </div>
             </form>
         </div>
     )

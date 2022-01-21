@@ -39,7 +39,7 @@ const Home:React.FC=()=>{
                     </div>
                     </Link>
                 )
-            }):<div>Loading...</div>}
+            }):<div className="flex justify-center text-cyan-200">Loading...</div>}
             {currentUser.admin?
             <div className="flex flex-col items-center">
               <div className="text-slate-600 bg-stone-200 rounded p-2"><Link to="/category/create">Create Category</Link></div>

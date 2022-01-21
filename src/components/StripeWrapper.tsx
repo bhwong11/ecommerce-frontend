@@ -25,6 +25,7 @@ const StripeWrapper= ({amount,setProducts,cartId}:props)=> {
   return (
     <div>
     <Elements stripe={stripePromise}>
+      <div className="py-2">Card Information</div>
       <CheckoutForm amount={amount} cartId={cartId} setProducts={setProducts}/>
     </Elements>
     </div>

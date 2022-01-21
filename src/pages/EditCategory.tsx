@@ -79,23 +79,27 @@ const EditCategory:React.FC=()=>{
         }
     }
     return(
-        <div>
-            Edit Category
-            <div>{success}</div>
-            <div>{error}</div>
+        <div className="flex flex-col items-center text-stone-200">
+            <div className="text-2xl">Edit Category</div>
+            <div className="text-lime-400">{success}</div>
+            <div className="text-red-400">{error}</div>
             {categoryData?
-            <div>
+            <div className="flex flex-col items-center border-2 border-stone-200 rounded p-4 m-2">
                 <div>Name: {categoryData.category.name}</div>
                 <form onSubmit={editCategoryHandler}>
-                    <input value={categoryName} onChange={(e)=>setCategoryName(e.target.value)}/>
-                    <button>edit category</button>
+                    <input className="rounded text-stone-800 p-2" value={categoryName} onChange={(e)=>setCategoryName(e.target.value)}/>
+                    <div className="flex justify-center">
+                      <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:bg-slate-600 hover:text-stone-200 transition:ease-in-out">Edit Category</button>
+                    </div>
                 </form>
-                <button onClick={()=>setDeleteConfirmation(true)}>Delete Category</button>
+                <div className="flex justify-center">
+                  <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:text-stone-200 hover:bg-slate-600  transition:ease-in-out" onClick={()=>setDeleteConfirmation(true)}>Delete Category</button>
+                </div>
                 {deleteConfirmation?
                 <div>
                     <div>Are you sure you want to delete this category?</div>
-                    <button onClick={deleteCategoryHandler}>Delete</button>
-                    <button onClick={()=>setDeleteConfirmation(false)}>Cancel</button>
+                    <button className="border-2 border-red-400 bg-red-400 rounded text-slate-600 p-2 m-2 hover:border-red-400 hover:bg-slate-600 hover:text-red-400 transition:ease-in-out" onClick={deleteCategoryHandler}>Delete</button>
+                    <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:bg-slate-600 hover:text-stone-200 transition:ease-in-out" onClick={()=>setDeleteConfirmation(false)}>Cancel</button>
                 </div>:<></>}
             </div>:<>loading category...</>}
         </div>

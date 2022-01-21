@@ -71,9 +71,9 @@ const Category:React.FC=()=>{
                    <div> CATEGORY: </div>
                     <div className="text-cyan-200 text-2xl">{categoryData.category.name}</div>
                 </div>:
-                <>
+                <div className="flex justify-center text-cyan-200">
                     loading categories...
-                </>
+                </div>
             }
 
             {productsData?
@@ -99,7 +99,8 @@ const Category:React.FC=()=>{
                         </div>
                     )
                 })}
-                </div>:<div>No Products</div>}
+                {productsData.productsCategorySearch.length<1?<div className="flex justify-center text-cyan-200">No Products</div>:<></>}
+                </div>:<div className="flex justify-center text-cyan-200">Loading Products...</div>}
             {currentUser?currentUser.admin?<div className="flex flex-col items-center py-3">
                 <Link to={`/category/${categoryId}/edit`}><div className="text-slate-600 bg-stone-200 rounded p-2">Edit Category</div></Link>
                 </div>:<></>:<></>}

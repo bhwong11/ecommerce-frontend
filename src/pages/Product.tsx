@@ -66,29 +66,6 @@ const CREATE_REVIEW = gql`
     }
 `
 
-const EDIT_REVIEW = gql`
-    mutation updateReview($id:ID!,$title:String!,$content:String!,$product:ID!,$user:ID!) {
-        updateReview(id:$id,title:$title,content:$content,product:$product,user:$user) {
-        _id,
-        title,
-        content,
-        product,
-        user
-        }
-    }
-`
-
-const DELETE_REVIEW = gql`
-    mutation deleteReview($id:ID!,$title:String!,$content:String!,$product:ID!,$user:ID!) {
-        deleteReview(id:$id,title:$title,content:$content,product:$product,user:$user) {
-        _id,
-        title,
-        content,
-        product,
-        user
-        }
-    }
-`
 
 const Product:React.FC = ()=>{
     const {productId} = useParams()
@@ -110,17 +87,7 @@ const Product:React.FC = ()=>{
     const [createReviewMutation, { data:createReviewMutationData, loading:createReviewLoadingMutation, error:createReviewErrorMutation }] = useMutation(CREATE_REVIEW,{
         onCompleted({createReview}){
           console.log('REVIew',createReview)
-        }})
-    
-    const [editReviewMutation, { data:editReviewMutationData, loading:editReviewLoadingMutation, error:editReviewErrorMutation }] = useMutation(EDIT_REVIEW,{
-            onCompleted({review}){
-              console.log(review)
-            }})
-    
-    const [deleteReviewMutation, { data:deleteReviewMutationData, loading:deleteReviewLoadingMutation, error:deleteReviewErrorMutation }] = useMutation(DELETE_REVIEW,{
-                onCompleted({review}){
-                  console.log(review)
-                }})        
+        }}) 
     
     const [addToCartSuccess,setAddToCartSuccess] =useState<string>('');
     const [reviewError,setReviewError] = useState<string>('');
@@ -139,6 +106,8 @@ const Product:React.FC = ()=>{
         e.preventDefault()
         try{
             await createReviewMutation({ variables: { title,content,product:productId,user:currentUser._id} })
+            setTitle('')
+            setContent('')
         }catch(err){
             setReviewError('unable to create reivew at this time, try again later')
         }
@@ -146,55 +115,62 @@ const Product:React.FC = ()=>{
     }
 
     return(
+        <div className="flex flex-col items-center">
+        {productData?
         <div>
-        Product Page{productData?
-        <div>
-                <div>Product: {productData.product.title}</div>
-                <div>Product id: {productData.product._id}</div>
-                <div>Price: {productData.product.price}</div>
-                <div>Image: {productData.product.image}</div>
-                <div>description: {productData.product.description}</div>
-                {addToCartSuccess}
+            <div className="flex flex-col items-center border-2 border-cyan-200 rounded-md text-cyan-200 py-3">   
+                <div className="text-xl">Product: {productData.product.title}</div>
+                <div><img className="w-80" src={productData.product.image}/></div>
+                <div>Price: ${productData.product.price}.00</div>
+                <div>description:</div>
+                <div>{productData.product.description}</div>
+                <div className="text-lime-400">{addToCartSuccess}</div>
                 {currentUser?
-                <button onClick={()=>addToCart(productData.product._id)}>
+                <button className="border-2 border-cyan-200 rounded-md bg-stone-800 p-2 mt-2 hover:bg-cyan-200 hover:text-slate-600 transition:ease-in-out" onClick={()=>addToCart(productData.product._id)}>
                     add to cart
                 </button>:
                 <></>
                 }
-                
-                <div>
+            </div>
+                <div className="flex flex-col items-center text-cyan-200 pt-2">
                     <div>Reviews</div>
                     <form onSubmit={createReview}>
                         <label>
-                            <div>title:</div>
-                            <input value={title} onChange={(e)=>setTitle(e.target.value)}></input>
+                            <div>Title:</div>
+                            <input className="w-80 rounded text-black p-1" value={title} onChange={(e)=>setTitle(e.target.value)}></input>
                         </label>
                         <label>
-                            <div>content:</div>
-                            <textarea value={content} onChange={(e)=>setContent(e.target.value)}>
+                            <div>Content:</div>
+                            <textarea  className="w-80 rounded text-black p-1" value={content} onChange={(e)=>setContent(e.target.value)}>
                             </textarea>
                         </label>
-                        <div>
-                        <button>Create Review</button>
+                        <div className="flex justify-center">
+                        <button
+                        className="border-2 border-cyan-200 rounded-md hover:bg-cyan-200 hover:text-slate-600 transition:ease-in-out p-2"
+                        >Create Review</button>
                         </div>
                     </form>
-                    {reviewsData?reviewsData.reviewsProductSearch.map((review:any)=>{
+                    {reviewsData?[...reviewsData.reviewsProductSearch].reverse().map((review:any)=>{
                         return(
-                            <div>
-                                <div>review: {review.title}</div>
-                                <div>content:{review.content}</div>
-                                <div>user:{review.user.username}</div>
+                            <div className="rounded bg-stone-800 w-80 p-2 m-2">
+                                <div><span className="italic">Review:</span> {review.title}</div>
+                                <div className="break-all">{review.content}</div>
+                                <div><span className="italic">Left By:</span>{review.user.username}</div>
                                 {review.user._id===currentUser._id?
-                                <Link to={`/review/${review._id}/edit`}>Edit Review</Link>:<></>}
+                                <Link to={`/review/${review._id}/edit`}><div className="text-stone-200">Edit Review</div></Link>:<></>}
                             </div>
                         )
                     }):<>loading reviews...</>}
                 </div>
                 {currentUser.admin?<div>
-                <Link to={`/product/${productData.product._id}/edit`}>Edit Product</Link>
+                <Link to={`/product/${productData.product._id}/edit`}>
+                    <div className="flex justify-center bg-stone-200 text-slate-600 rounded p-2 m-2">
+                    Edit Product
+                    </div>
+                    </Link>
                 </div>:<></>}
         </div>:
-        <>loading product...</>
+        <div className="flex justify-center text-cyan-200">loading product...</div>
         }
         </div>
     )

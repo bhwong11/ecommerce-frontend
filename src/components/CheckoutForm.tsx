@@ -109,41 +109,55 @@ const CheckoutForm = ({amount,cartId,setProducts}:props) => {
   return (
     <form onSubmit={handleSubmit}>
       {billingError}
+      <div className="border-2 border-slate-600 rounded p-2">
       <CardElement/>
-      <div>Billing Information</div>
+      </div>
+      <div className="py-2">Billing Information</div>
       <div>
-        <div>
-        <label>
-          Name:
-          <input type="text" value={name} onChange={(e)=>setName(e.target.value)} />
-        </label>
+        <div className="flex flex-wrap">
+          <div className="m-1">
+          <label>
+            Name:
+            <input className="rounded" type="text" value={name} onChange={(e)=>setName(e.target.value)} />
+          </label>
+          </div>
+          <div className="m-1">
+          <label>
+            Email:
+            <input className="rounded" type="text" value={email} onChange={(e)=>setEmail(e.target.value)} />
+          </label>
+          </div>
         </div>
-        <div>
-        <label>
-          Email:
-          <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} />
-        </label>
+        <div className="flex flex-wrap">
+          <div className="m-1">
+          <label>
+            Address Line 1:
+            <input className="rounded" type="text" value={line1} onChange={(e)=>setLine1(e.target.value)} />
+          </label>
+          </div>
+          <div className="m-1">
+          <label>
+            Address Line 2:
+            <input className="rounded" type="text" />
+          </label>
+          </div>
         </div>
-        <div>
-        <label>
-          City:
-          <input type="text" value={city} onChange={(e)=>setCity(e.target.value)} />
-        </label>
-        </div>
-        <div>
-        <label>
-          Address Line 1:
-          <input type="text" value={line1} onChange={(e)=>setLine1(e.target.value)} />
-        </label>
-        </div>
-        <div>
-        <label>
-          Postal Code:
-          <input type="text" value={postalCode} onChange={(e)=>setPostalCode(e.target.value)} />
-        </label>
+        <div className="flex flex-wrap">
+          <div className="m-1">
+          <label>
+            City: 
+            <input className="rounded" type="text" value={city} onChange={(e)=>setCity(e.target.value)} />
+          </label>
+          </div>
+          <div className="m-1">
+          <label>
+            Postal Code: 
+            <input className="rounded" type="text" value={postalCode} onChange={(e)=>setPostalCode(e.target.value)} />
+          </label>
+          </div>
         </div>
       </div>
-      <button disabled={!stripe}>Submit</button>
+      <button className="border-2 border-stone-800 rounded bg-stone-800 text-stone-200 p-2 mt-2" disabled={!stripe}>Confirm Order</button>
     </form>
   );
 };

@@ -48,20 +48,20 @@ const Register:React.FC=()=>{
     }
 
     return(
-        <div className="flex justify-center border-2 border-stone-200 rounded-md mx-80 p-4">
+        <div className="flex justify-center border-2 border-stone-200  bg-stone-800 rounded-md mx-80 p-4">
             {error?<div>Error {error}</div>:<></>}
             <form className="flex flex-col" onSubmit={onRegister}>
                 <label>
                     <div className="text-stone-200">username:</div>
-                    <input className="rounded-md" type="text" value={username} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setUsername(e.target.value)}/>
+                    <input className="rounded-md p-1" type="text" value={username} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setUsername(e.target.value)}/>
                 </label>
                 <label>
                     <div className="text-stone-200">email:</div>
-                    <input className="rounded-md" type="email" value={email} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setEmail(e.target.value)}/>
+                    <input className="rounded-md p-1" type="email" value={email} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setEmail(e.target.value)}/>
                 </label>
                 <label>
                     <div className="text-stone-200">password:</div>
-                    <input className="rounded-md" type="password" value={password} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)}/>
+                    <input className="rounded-md p-1" type="password" value={password} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)}/>
                 </label>
                 <button className="mt-2 border-2 rounded bg-stone-200 text-slate-600">Register</button>
             </form>
