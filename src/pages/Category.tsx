@@ -67,8 +67,9 @@ const Category:React.FC=()=>{
         <div>
             {
                 categoryData?
-                <div className="flex justify-center">
-                    Category: {categoryData.category.name}
+                <div className="flex flex-col items-center m-6 text-stone-200 text-4xl">
+                   <div> CATEGORY: </div>
+                    <div className="text-cyan-200 text-2xl">{categoryData.category.name}</div>
                 </div>:
                 <>
                     loading categories...
@@ -79,22 +80,29 @@ const Category:React.FC=()=>{
               <div className="flex flex-wrap justify-evenly">
                 {productsData.productsCategorySearch.map((product:Product)=>{
                     return(
-                        <div>
+                        <div className="flex flex-col items-center border-2 border-cyan-200 rounded-md py-4 text-cyan-200">
                         <div>
                             {product.title}
                         </div>
                         <div>
-                            {product._id}
-                            info: <Link to={`/product/${product._id}`}>Link</Link>
+                            <img className="w-60" src={product.image} alt={`${product.title} image`}/>
+                        </div>
+                        <div>
+                            ${product.price}.00
+                        </div>
+                        <div>
+                            <Link to={`/product/${product._id}`}><button
+                            className="border-2 border-cyan-200 rounded-md px-6
+                            hover:bg-cyan-200 hover:text-slate-600 transition:ease-in-out"
+                            >Info</button></Link>
                         </div>
                         </div>
                     )
                 })}
                 </div>:<div>No Products</div>}
-            {currentUser?currentUser.admin?<div>
-                <Link to={`/category/${categoryId}/edit`}>Edit Category</Link>
+            {currentUser?currentUser.admin?<div className="flex flex-col items-center py-3">
+                <Link to={`/category/${categoryId}/edit`}><div className="text-slate-600 bg-stone-200 rounded p-2">Edit Category</div></Link>
                 </div>:<></>:<></>}
-            
         </div>
     )
 }
