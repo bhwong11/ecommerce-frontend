@@ -70,26 +70,25 @@ const CreateProduct:React.FC =()=>{
             <div>
                 <label>
                 <div>Title:</div>
-                <input className="rounded p-1 text-stone-800" value={title} onChange={(e)=>setTitle(e.target.value)}/>
+                <input className="rounded p-1 text-stone-800 w-80" value={title} onChange={(e)=>setTitle(e.target.value)}/>
                 </label>
             </div>
             <div>
                 <label>
                 <div>Price:</div>
-                <input className="rounded p-1 text-stone-800" type='text' pattern="[0-9]*" value={price} onChange={(e)=>setPrice(parseInt(e.target.value) || 0)}/>
+                <input className="rounded p-1 text-stone-800 w-80" type='text' pattern="[0-9]*" value={price} onChange={(e)=>setPrice(parseInt(e.target.value) || 0)}/>
                 </label>
             </div>
             <div>
                 <label>
                 <div>Image:</div>
-                <input className="rounded p-1 text-stone-800" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setImage(e.target.value)}/>
+                <input className="rounded p-1 text-stone-800 w-80" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setImage(e.target.value)}/>
                 </label>
             </div>
             <div>
                 <label>
                 <div>Category:</div>
-                <select className="rounded p-1 text-stone-800" value={categoryId} onChange={(e)=>setCategoryId(e.target.value)}>
-                {console.log('CATEOGRY DATA',categoriesData)}
+                <select className="rounded p-1 text-stone-800 w-80" value={categoryId} onChange={(e)=>setCategoryId(e.target.value)}>
                 {categoriesData?categoriesData.categories.map((category:any)=>{
                     return <option value={category._id}>{category.name}</option>
                 }):<></>}            
@@ -99,7 +98,7 @@ const CreateProduct:React.FC =()=>{
             <div>
                 <label>
                 <div>description:</div>
-                <textarea className="rounded p-1 text-stone-800" value={description} onChange={(e)=>setDescription(e.target.value)}>
+                <textarea className="rounded p-1 text-stone-800 w-80" value={description} onChange={(e)=>setDescription(e.target.value)}>
                   </textarea>
                 </label>
             </div>

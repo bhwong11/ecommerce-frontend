@@ -49,7 +49,7 @@ const Register:React.FC=()=>{
 
     return(
         <div className="flex justify-center border-2 border-stone-200  bg-stone-800 rounded-md mx-80 p-4">
-            {error?<div>Error {error}</div>:<></>}
+            {error?<div className="flex-col text-cyan-200">Error {error}</div>:<></>}
             <form className="flex flex-col" onSubmit={onRegister}>
                 <label>
                     <div className="text-stone-200">username:</div>

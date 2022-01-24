@@ -105,30 +105,30 @@ const ReviewEdit:React.FC=()=>{
     }
 
     return(
-        <div>
-            Review Edit Page
-            {error}
-            {success}
-            <form onSubmit={editReview}>
+        <div className="flex flex-col items-center text-stone-200">
+            <div className="text-2xl m-2">Review Edit Page</div>
+            <div className="text-lime-400">{error}</div>
+            <div className="text-red-400">{success}</div>
+            <form className="border-2 border-stone-200 rounded p-6" onSubmit={editReview}>
                 <label>
                     <div>title:</div>
-                    <input value={title} onChange={(e)=>setTitle(e.target.value)}></input>
+                    <input className="rounded p-1 text-stone-800 w-80" value={title} onChange={(e)=>setTitle(e.target.value)}></input>
                 </label>
                 <label>
                     <div>content:</div>
-                    <textarea value={content} onChange={(e)=>setContent(e.target.value)}>
+                    <textarea className="rounded p-1 text-stone-800 w-80" value={content} onChange={(e)=>setContent(e.target.value)}>
                     </textarea>
                 </label>
-                <div>
-                <button>Edit Review</button>
+                <div className="flex justify-center mt-2">
+                <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:text-stone-200 hover:bg-slate-600 transition:ease-in-out">Edit Review</button>
                 </div>
             </form>
-            <button onClick={()=>setDeleteConfirmation(true)}>Delete Review</button>
+            <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:text-stone-200 hover:bg-slate-600 transition:ease-in-out" onClick={()=>setDeleteConfirmation(true)}>Delete Review</button>
             {deleteConfirmation?
             <div>
                 <div>Are you sure you want to delete this category?</div>
-                <button onClick={deleteCategoryHandler}>Delete</button>
-                <button onClick={()=>setDeleteConfirmation(false)}>Cancel</button>
+                <button className="border-2 border-red-400 bg-red-400 rounded text-slate-600 p-2 m-2 hover:border-red-400 hover:bg-slate-600 hover:text-red-400 transition:ease-in-out" onClick={deleteCategoryHandler}>Delete</button>
+                <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:bg-slate-600 hover:text-stone-200 transition:ease-in-out" onClick={()=>setDeleteConfirmation(false)}>Cancel</button>
             </div>:<></>}
         </div>
     )

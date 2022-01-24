@@ -97,18 +97,18 @@ const Cart = (props:any)=>{
             <div className="mx-10">
             {products.map((product:any)=>{
             return(
-            <div className="border-2 rounded border-cyan-200 text-cyan-200 bg-stone-800 mt-2 p-2">
+            <div className="border-2 rounded border-cyan-200 text-cyan-200 bg-stone-800 mt-2 p-4">
                 <div>title: {product.title}</div>
                 <div>description: {product.description}</div>
                 <div>price: {product.price}</div>
                 <button className="border-2 border-cyan-200 rounded-md bg-slate-600 p-2 text-cyan-200 mt-2 hover:bg-cyan-200 hover:text-slate-600 transition:ease-in-out" onClick={(e:any)=>onRemove(currentUser.cart,product._id)}>Remove From Cart</button>
             </div>)
         })}
-        <div className="bg-stone-200 text-slate-600 mt-4 p-2 rounded">
+        <div className="bg-stone-200 text-slate-600 mt-4 p-4 rounded">
         {products.length>0?<StripeWrapper setProducts={setProducts} cartId={currentUser.cart} amount={products&&products.length>0?products.map((product:any)=>product.price).reduce((a:any,c:any)=>a+c):0}/>:<div>Add Products to get started!</div>}
         </div>
         
-        </div>:<>loading cart data...</>}
+        </div>:<div className="flex justify-center text-cyan-200">loading cart data...</div>}
         </div>
         
     )

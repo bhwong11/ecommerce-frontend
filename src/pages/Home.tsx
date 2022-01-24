@@ -30,7 +30,7 @@ const Home:React.FC=()=>{
     }})
     return(
         <div>
-            <div className="flex justify-center text-stone-200 text-4xl">HOMEPAGE</div>
+            <div className="flex justify-center text-stone-200 text-4xl">CATEGORIES</div>
             <div className="flex justify-center text-cyan-200">Product Categories</div>
             {categories?categories.map((category:Category)=>{
                 return(

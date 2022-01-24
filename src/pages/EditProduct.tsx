@@ -120,36 +120,35 @@ const EditProduct:React.FC=()=>{
     }
 
     return(
-        <div>
-            <div>Edit Product</div>
+        <div className="flex flex-col items-center text-stone-200">
+            <div className="text-2xl m-2">Edit Product</div>
 
-            <div>{success}</div>
-            <div>{error}</div>
+            <div className="text-lime-400">{success}</div>
+            <div className="text-red-400">{error}</div>
             <div>Edit {productData?<>{productData.product.title}</>:<></>}</div>
-            <form onSubmit={editProductHandler}>
+            <form className="border-2 border-stone-200 rounded p-6" onSubmit={editProductHandler}>
             <div>
                 <label>
-                Title:
-                <input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+                <div>Title:</div>
+                <input className="rounded p-1 text-stone-800 w-80" value={title} onChange={(e)=>setTitle(e.target.value)}/>
                 </label>
             </div>
             <div>
                 <label>
-                Price:
-                <input type='text' pattern="[0-9]*" value={price} onChange={(e)=>setPrice(parseInt(e.target.value) || 0)}/>
+                <div>Price:</div>
+                <input className="rounded p-1 text-stone-800 w-80" type='text' pattern="[0-9]*" value={price} onChange={(e)=>setPrice(parseInt(e.target.value) || 0)}/>
                 </label>
             </div>
             <div>
                 <label>
-                Image:
-                <input value={image} onChange={(e)=>setImage(e.target.value)}/>
+                <div>Image:</div>
+                <input className="rounded p-1 text-stone-800 w-80" value={image} onChange={(e)=>setImage(e.target.value)}/>
                 </label>
             </div>
             <div>
                 <label>
-                Category:
-                <select value={categoryId} onChange={(e)=>setCategoryId(e.target.value)}>
-                {console.log('CATEOGRY DATA',categoriesData)}
+                <div>Category:</div>
+                <select className="rounded p-1 text-stone-800 w-80" value={categoryId} onChange={(e)=>setCategoryId(e.target.value)}>
                 {categoriesData?categoriesData.categories.map((category:any)=>{
                     return <option value={category._id}>{category.name}</option>
                 }):<></>}            
@@ -158,19 +157,25 @@ const EditProduct:React.FC=()=>{
             </div>
             <div>
                 <label>
-                description:
-                <input value={description} onChange={(e)=>setDescription(e.target.value)}/>
+                <div>description:</div>
+                <input className="rounded p-1 text-stone-800 w-80" value={description} onChange={(e)=>setDescription(e.target.value)}/>
                 </label>
             </div>
-            <button>Edit Product</button>
+            <div className="flex justify-center mt-2">
+              <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:text-stone-200 hover:bg-slate-600  transition:ease-in-out">Edit Product</button>
+            </div>
             </form>
-            <button onClick={()=>setDeleteConfirmation(true)}>Delete Product</button>
+            <div>
+            <div className="flex justify-center mt-2">
+              <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:text-stone-200 hover:bg-slate-600 transition:ease-in-out" onClick={()=>setDeleteConfirmation(true)}>Delete Product</button>
+            </div>
                 {deleteConfirmation?
                 <div>
                     <div>Are you sure you want to delete this product?</div>
-                    <button onClick={deleteProductHandler}>Delete</button>
-                    <button onClick={()=>setDeleteConfirmation(false)}>Cancel</button>
+                    <button className="border-2 border-red-400 bg-red-400 rounded text-slate-600 p-2 m-2 hover:border-red-400 hover:bg-slate-600 hover:text-red-400 transition:ease-in-out" onClick={deleteProductHandler}>Delete</button>
+                    <button className="border-2 border-stone-200 bg-stone-200 rounded text-slate-600 p-2 m-2 hover:border-stone-200 hover:bg-slate-600 hover:text-stone-200 transition:ease-in-out" onClick={()=>setDeleteConfirmation(false)}>Cancel</button>
                 </div>:<></>}
+            </div>
         </div>
     )
 }
