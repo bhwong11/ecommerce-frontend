@@ -30,7 +30,7 @@ const CreateProduct:React.FC =()=>{
     const {user:currentUser} = useSelector((state:any)=>state.auth)
     const [title,setTitle] = useState<string>('')
     const [price,setPrice] = useState<number>(0)
-    const [image,setImage] = useState<string >('')
+    const [image,setImage] = useState<string>('')
     const [categoryId,setCategoryId] = useState<string>('')
     const [description,setDescription] = useState<string>('')
     const [success,setSuccess] = useState<string>('')
@@ -82,7 +82,7 @@ const CreateProduct:React.FC =()=>{
             <div>
                 <label>
                 <div>Image:</div>
-                <input className="rounded p-1 text-stone-800 w-80" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setImage(e.target.value)}/>
+                <input className="rounded p-1 text-stone-800 w-80" value={image} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setImage(e.target.value)}/>
                 </label>
             </div>
             <div>
