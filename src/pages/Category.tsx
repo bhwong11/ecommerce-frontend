@@ -60,7 +60,8 @@ const Category:React.FC=()=>{
     const { data:categoryData, loading:loadingData,error:errorData} = useQuery(GET_CATEGORY,{ 
         variables: { id:categoryId} 
         })
-    const { data:productsData, loading:productsLoading,error:productsError} = useQuery(GET_PRODUCTS,{ 
+    const { data:productsData, loading:productsLoading,error:productsError} = useQuery(GET_PRODUCTS,{
+        pollInterval: 500, 
         variables: { id:categoryId} 
         })
     return(
@@ -80,7 +81,7 @@ const Category:React.FC=()=>{
               <div className="flex flex-wrap justify-evenly">
                 {productsData.productsCategorySearch.map((product:Product)=>{
                     return(
-                        <div className="flex flex-col items-center border-2 border-cyan-200 rounded-md py-4 text-cyan-200">
+                        <div className="flex flex-col items-center border-2 border-cyan-200 rounded-md py-4 text-cyan-200 m-2">
                         <div>
                             {product.title}
                         </div>
